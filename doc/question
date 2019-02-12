@@ -1,0 +1,15 @@
+用户发起推流，推流url为rtmp://livepush.hndt.com/live/stream，
+
+同时向您的接口服务器请求token参数，接口服务器放回token值，如：token=12345
+加密方式：URL + Key + Timestamp
+
+推流端构造url进行推流到cdn节点，如：rtmp://livepush.hndt.com/live/stream?token=12345
+
+我们节点收到推流请求后，会根据配置的回源路径进行改装url，如：http://hndt.natapp1.cc/url/validate?token=12345
+
+按照post的方式向您鉴权服务器发起请求，鉴权服务器判断token值是否合法，响应不同的信息给节点，节点根据不同信息判断是否通过推流请求
+
+
+1、推流URL是否没有参数，
+如果没有参数，请求url为：rtmp://livepush.hndt.com/live/stream?token=12345
+如果有参数，请求url为：rtmp://livepush.hndt.com/live/stream?param=XXX&token=12345

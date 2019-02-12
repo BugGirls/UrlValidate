@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>验证</title>
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="/static/css/amazeui.min.css" />
+        <link rel="stylesheet" href="/static/css/admin.css">
+        <link rel="stylesheet" href="/static/css/app.css">
+        <script src="/static/js/echarts.min.js"></script>
+    </head>
+
+    <body data-type="index">
+        <header class="am-topbar am-topbar-inverse admin-header"></header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="row">
+                <div class="am-u-sm-12 row-mb">
+                    <div class="tpl-portlet">
+                        <div class="tpl-portlet-title">
+                            <div class="tpl-caption font-red ">
+                                <span>验证URL</span>
+                            </div>
+                        </div>
+                        <div class="tpl-scrollable">
+                            <div class="number-stats">
+                                <div class="am-form am-form-horizontal">
+                                    <div class="am-form-group">
+                                        <label for="urlInput">输入URL</label>
+                                        <textarea class="" rows="5" id="urlInput" placeholder="输入URL"></textarea>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-10 am-u-sm-offset-2">
+                                            <button type="submit" id="checkBtn" class="am-btn am-btn-default">验证</button>
+                                        </div>
+                                    </div>
+                                    <div class="am-panel am-panel-default" id="resultDiv">
+                                        <div class="am-panel-bd" id="showReturnUrl"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+        <script src="/static/js/amazeui.min.js"></script>
+        <script>
+            $('#resultDiv').hide()
+            $('#checkBtn').click(function() {
+                var form = new FormData();
+                form.append('url', $('#urlInput').val())
+                form.append('token', $('#tokenInput').val())
+                form.append('timestamp', $('#timestampInput').val())
+                $.ajax({
+                    url : '/url/validate',
+                    type : 'POST',
+                    data : form,
+                    contentType : false,
+                    processData : false,
+                    cache : false,
+                    success : function(res) {
+                        if (res === 200) {
+                            $('#showReturnUrl').html('验证通过')
+                            $('#resultDiv').show()
+                        } else {
+                            $('#showReturnUrl').html('验证失败')
+                            $('#resultDiv').show()
+                        }
+                    }
+                });
+            })
+
+            function getUrlParam(name, url){
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = url.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
+        </script>
+    </body>
+</html>

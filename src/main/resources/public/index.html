@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Amaze UI Admin index Examples</title>
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="/css/amazeui.min.css" />
+        <link rel="stylesheet" href="/css/admin.css">
+        <link rel="stylesheet" href="/css/app.css">
+        <script src="/js/echarts.min.js"></script>
+        <link rel="stylesheet" href="//s.amazeui.org/assets/2.x/css/amaze.min.css?v=ivnei789"><!--[if (gte IE 9)|!(IE)]><!-->
+        <style>
+            .wrapper {position: relative;}
+            #input {position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;}
+        </style>
+    </head>
+
+    <body data-type="index">
+        <header class="am-topbar am-topbar-inverse admin-header"></header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="row">
+                <div class="am-u-sm-12 row-mb">
+                    <div class="tpl-portlet">
+                        <div class="tpl-portlet-title">
+                            <div class="tpl-caption font-red ">
+                                <span>URL加密返回</span>
+                            </div>
+                        </div>
+                        <div class="tpl-scrollable">
+                            <div class="number-stats">
+                                <div class="am-form">
+                                    <fieldset>
+                                        <div class="am-form-group">
+                                            <label for="doc-ta-1">输入URL</label>
+                                            <textarea class="" rows="5" id="doc-ta-1"></textarea>
+                                        </div>
+                                        <p><button type="submit" id="submitBtn" class="am-btn am-btn-default">提交</button></p>
+
+                                        <div class="am-panel am-panel-default" id="returnDiv">
+                                            <div class="doc-actions"><div class="doc-act-inner"><span onclick="copyText()" class="doc-act-clip am-icon-copy"> Copy</span></div></div>
+                                            <div class="am-panel-bd">
+                                                <p id="showReturnUrl"></p>
+                                                <textarea id="input">这是幕后黑手</textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+        <script src="/js/amazeui.min.js"></script>
+        <script>
+            $('#returnDiv').hide()
+            $('#submitBtn').click(function() {
+                $.ajax({
+                    url : '/url/encode',
+                    type : 'POST',
+                    data : {
+                        url: $('#doc-ta-1').val()
+                    },
+                    success : function(res) {
+                        var str = res
+                        // 定义正则表达式：第一个参数是要替换掉的内容，第二个参数"g"表示替换全部（global）
+                        var re = new RegExp("&","g")
+                        // 第一个参数是正则表达式
+                        str = str.replace(re,'&amp;')
+                        $('#showReturnUrl').html(str)
+                        $('#returnDiv').show()
+                    }
+                });
+            })
+
+            function copyText() {
+                var text = document.getElementById("showReturnUrl").innerText;
+                var input = document.getElementById("input");
+                input.value = text; // 修改文本框的内容
+                input.select(); // 选中文本
+                document.execCommand("copy"); // 执行浏览器复制命令
+            }
+        </script>
+    </body>
+</html>
