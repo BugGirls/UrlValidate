@@ -3,6 +3,7 @@ package com.hndt.service;
 import com.hndt.utils.MD5Util;
 import com.hndt.utils.StringUtil;
 import com.hndt.utils.TokenCache;
+import com.hndt.utils.TokenCache2;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -68,12 +69,19 @@ public class UrlService {
             return 500;
         }
 
-        String localUrl = TokenCache.getKey(TokenCache.TOKEN_PREFIX + token);
-        List<String> url = StringUtil.splitToListStr(passUrl);
-        if (url.contains(localUrl)) {
-            return 200;
+        TokenCache2.setKey("pass", "rtmp://livepush.hndt.com/live/fm1065zhiboshi,rtmp://livepush.hndt.com/live/xinwen954zhiboshi,rtmp://livepush.hndt.com/live/jtzhibo,rtmp://livepush.hndt.com/live/jiaoyu0411,rtmp://livepush.hndt.com/live/jiaotong1041zhiboshi");
+
+        if (token.equals("pass")) {
+            List<String> urlSource = StringUtil.splitToListStr(TokenCache2.getKey("pass"));
+            for (String url: urlSource) {
+                List<String> urlList = StringUtil.splitToListStr(passUrl);
+                if (urlList.contains(url)) {
+                    return 200;
+                }
+            }
         }
 
+        String localUrl = TokenCache.getKey(TokenCache.TOKEN_PREFIX + token);
         if (StringUtils.isNotBlank(localUrl)) {
             String sign = UrlEncode(localUrl);
 
@@ -87,7 +95,6 @@ public class UrlService {
         } else {
             return 500;
         }
-
     }
 
     /**

@@ -3,4 +3,4 @@ server:
 
 SecretKey: b63d4c0a-6d02-428f-9143-78859c8bca0e
 
-passURL: http://livepull.hndt.com/live/fm1065zhiboshi/playlist.m3u8,http://livepull.hndt.com/live/xinwen954zhiboshi/playlist.m3u8,http://livepull.hndt.com/live/JTzhibo/playlist.m3u8,http://livepull.hndt.com/live/jiaoyu0411/playlist.m3u8
+passURL: rtmp://livepush.hndt.com/live/fm1065zhiboshi,rtmp://livepush.hndt.com/live/xinwen954zhiboshi,rtmp://livepush.hndt.com/live/jtzhibo,rtmp://livepush.hndt.com/live/jiaoyu0411,rtmp://livepush.hndt.com/live/fm1065zhiboshi,rtmp://livepush.hndt.com/live/jiaotong1041zhiboshi

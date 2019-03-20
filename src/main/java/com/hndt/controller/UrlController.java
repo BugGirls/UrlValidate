@@ -45,7 +45,7 @@ public class UrlController {
      * @return
      */
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public void validate(@RequestParam(value = "token") String token, HttpServletResponse response) {
+    public void validate(@RequestParam(value = "token", defaultValue = "pass") String token, HttpServletResponse response) {
         int status = urlService.validate(token);
         if (status == 200) {
             response.setStatus(200);

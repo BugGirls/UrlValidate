@@ -6,10 +6,10 @@
         <title>验证</title>
         <meta http-equiv="Cache-Control" content="no-siteapp" />
         <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-        <link rel="stylesheet" href="/static/css/amazeui.min.css" />
-        <link rel="stylesheet" href="/static/css/admin.css">
-        <link rel="stylesheet" href="/static/css/app.css">
-        <script src="/static/js/echarts.min.js"></script>
+        <link rel="stylesheet" href="/css/amazeui.min.css" />
+        <link rel="stylesheet" href="/css/admin.css">
+        <link rel="stylesheet" href="/css/app.css">
+        <script src="/js/echarts.min.js"></script>
     </head>
 
     <body data-type="index">
@@ -49,14 +49,12 @@
         </div>
 
         <script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script>
-        <script src="/static/js/amazeui.min.js"></script>
+        <script src="/js/amazeui.min.js"></script>
         <script>
             $('#resultDiv').hide()
             $('#checkBtn').click(function() {
                 var form = new FormData();
-                form.append('url', $('#urlInput').val())
-                form.append('token', $('#tokenInput').val())
-                form.append('timestamp', $('#timestampInput').val())
+                form.append('token', $('#urlInput').val())
                 $.ajax({
                     url : '/url/validate',
                     type : 'POST',
@@ -65,13 +63,8 @@
                     processData : false,
                     cache : false,
                     success : function(res) {
-                        if (res === 200) {
-                            $('#showReturnUrl').html('验证通过')
-                            $('#resultDiv').show()
-                        } else {
-                            $('#showReturnUrl').html('验证失败')
-                            $('#resultDiv').show()
-                        }
+                        $('#showReturnUrl').html('验证通过')
+                        $('#resultDiv').show()
                     }
                 });
             })

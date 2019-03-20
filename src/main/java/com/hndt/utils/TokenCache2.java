@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @author Hystar
  */
 @Slf4j
-public class TokenCache {
+public class TokenCache2 {
 
     public static final String TOKEN_PREFIX = "token_";
 
@@ -22,7 +22,7 @@ public class TokenCache {
             .initialCapacity(1000)
             .maximumSize(10000)
             // 有效期，2天
-            .expireAfterAccess(2, TimeUnit.DAYS)
+            .expireAfterAccess(5, TimeUnit.DAYS)
             .build(new CacheLoader<String, String>() {
                 //默认的数据加载实现,当调用get取值的时候,如果key没有对应的值,就调用这个方法进行加载.
                 @Override
@@ -50,8 +50,8 @@ public class TokenCache {
     }
 
     public static void main(String[] args) {
-        TokenCache.setKey(TokenCache.TOKEN_PREFIX, "123");
-        String localUrl = TokenCache.getKey(TokenCache.TOKEN_PREFIX);
+        TokenCache2.setKey(TokenCache2.TOKEN_PREFIX, "123");
+        String localUrl = TokenCache2.getKey(TokenCache2.TOKEN_PREFIX);
         System.out.println(localUrl);
     }
 }
